@@ -34,10 +34,16 @@ public class MessageProcessor {
 				                          .withLat(new BigDecimal(incomingMessage.get("lat")))
 				                          .withLng(new BigDecimal(incomingMessage.get("long")))
 				                          .withTimestamp(convertedDatestamp)
-				                          .withSpeed(new BigDecimal("20.24"))
+				                          .withSpeed(getRandomVehicleSpeed(20, 150))
 				                          .build();
 				                          
 		data.updatePosition(newReport);
 	}
+
+	public static BigDecimal getRandomVehicleSpeed(int min, int max) {
+	        Random random = new Random();
+	        double speedValue = min + (max - min) * random.nextDouble();
+	        return BigDecimal.valueOf(speedValue).setScale(2, RoundingMode.HALF_UP);
+    	}
 
 }
